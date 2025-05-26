@@ -1,0 +1,17 @@
+api:
+  insecure: false
+  dashboard: true
+
+log:
+  level: DEBUG
+
+providers:
+  docker:
+    exposedByDefault: false
+    network: $NETWORK_NAME
+
+entryPoints:
+  http:
+    address: ":80"
+  https:
+    address: ":433"

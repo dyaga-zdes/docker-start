@@ -1,0 +1,24 @@
+networks:
+  project-network:
+    driver: "bridge"
+    name: $NETWORK_NAME
+
+
+services:
+
+  traefik:
+    image: "traefik:v3.3.4"
+    container_name: "traefik"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - $NETWORK_NAME
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./config/traefik/traefik.yaml:/traefik.yaml:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.$PROJECT_NAME.local`)"
+      - "traefik.http.routers.dashboard.entrypoints=http"
+      - "traefik.http.routers.dashboard.service=api@internal"
