@@ -22,3 +22,18 @@ services:
       - "traefik.http.routers.dashboard.rule=Host(`traefik.$PROJECT_NAME.local`)"
       - "traefik.http.routers.dashboard.entrypoints=http"
       - "traefik.http.routers.dashboard.service=api@internal"
+
+
+  mysql:
+    image: "mysql:9.3.0"
+    container_name: "mysql"
+    restart: "always"
+    environment:
+      MYSQL_DATABASE: $PROJECT_NAME
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    ports:
+      - "33306:3306"
+    networks:
+      - $NETWORK_NAME

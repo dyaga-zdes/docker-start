@@ -1,5 +1,5 @@
 # docker-start
-Запускаем битрикс на докере с трафиком
+_Запускаем битрикс на докере с трафиком
 
 # TODO-LIST
 - traefik:
@@ -11,4 +11,4 @@
 > \$PROJECT_NAME.local  
 > traefik.\$PROJECT_NAME.local
 2) запустить контейнеры командой ```docker compose up -d```
-3) ...
+3) ..._
