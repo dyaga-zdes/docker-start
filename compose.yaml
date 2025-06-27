@@ -23,7 +23,6 @@ services:
       - "traefik.http.routers.dashboard.entrypoints=http"
       - "traefik.http.routers.dashboard.service=api@internal"
 
-
   mysql:
     image: "mysql:9.3.0"
     container_name: "mysql"
@@ -50,3 +49,17 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.adminer.rule=Host(`adminer.$PROJECT_NAME.local`)"
       - "traefik.http.routers.adminer.entrypoints=http"
+
+  apache:
+    image: "httpd:2.4"
+    container_name: "apache"
+    restart: "always"
+    networks:
+    - $NETWORK_NAME
+    volumes:
+      - "/config/apache/vhost.conf:/etc/apache2/sites-available/$PROJECT_NAME.local.conf:ro"
+      - "/src/site:/home/bitrix/www/public"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.apache.rule=Host(`$PROJECT_NAME.local`)"
+      - "traefik.http.routers.apache.entrypoints=http"
