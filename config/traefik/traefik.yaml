@@ -1,5 +1,5 @@
 api:
-  insecure: false
+  insecure: true
   dashboard: true
 
 log:
@@ -8,7 +8,7 @@ log:
 providers:
   docker:
     exposedByDefault: false
-    network: $NETWORK_NAME
+    network: "project-network"
 
 entryPoints:
   http:

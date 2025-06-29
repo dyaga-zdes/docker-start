@@ -45,6 +45,8 @@ services:
       - "mysql"
     networks:
       - $NETWORK_NAME
+    ports:
+      - "8080:8080"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.adminer.rule=Host(`adminer.$PROJECT_NAME.local`)"
