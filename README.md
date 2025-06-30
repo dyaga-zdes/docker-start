@@ -12,6 +12,7 @@ _Запускаем битрикс на докере с трафиком
 1) добавить записи в файл hosts, где bitrix-test заменить на значение константы \$PROJECT_NAME из файла .env
 > bitrix-test.local  
 > traefik.bitrix-test.local  
-> adminer.bitrix-test.local
+> adminer.bitrix-test.local  
+> pma.bitrix-test.local
 2) запустить контейнеры командой ```docker compose up -d```
 3) ...
