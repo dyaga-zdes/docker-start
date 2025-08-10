@@ -78,7 +78,8 @@ services:
     ports:
       - "8088:80"
     volumes:
-      - "./config/apache/vhost.conf:/etc/apache2/sites-available/$PROJECT_NAME.local.conf:ro"
+      - "./config/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro"
+      - "./config/apache/vhost.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro"
       - "./src/site:/home/bitrix/www/public"
     labels:
       - "traefik.enable=true"
