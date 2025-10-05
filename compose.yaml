@@ -69,19 +69,36 @@ services:
       - "traefik.http.routers.phpmyadmin.rule=Host(`pma.$PROJECT_NAME.local`)"
       - "traefik.http.routers.phpmyadmin.entrypoints=http"
 
-  apache:
-    image: "httpd:2.4"
-    container_name: "apache"
+# отдельный апач
+#  apache:
+#    image: "httpd:2.4"
+#    container_name: "apache"
+#    restart: "always"
+#    networks:
+#    - $NETWORK_NAME
+#    ports:
+#      - "8088:80"
+#    volumes:
+#      - "./config/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro"
+#      - "./config/apache/vhost.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro"
+#      - "./src/site:/home/bitrix/www/public"
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.apache.rule=Host(`$PROJECT_NAME.local`)"
+#      - "traefik.http.routers.apache.entrypoints=http"
+
+  apache-php:
+    image: "php:8.2-apache"
+    container_name: "apache-php"
     restart: "always"
     networks:
-    - $NETWORK_NAME
+      - $NETWORK_NAME
     ports:
-      - "8088:80"
+      - "8089:80"
     volumes:
-      - "./config/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro"
-      - "./config/apache/vhost.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro"
-      - "./src/site:/home/bitrix/www/public"
+      - "./config/apache/vhost.conf:/etc/apache2/sites-available/bitrix-test.local.conf:ro"
+      - "./src/site:/var/www/html"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.apache.rule=Host(`$PROJECT_NAME.local`)"
-      - "traefik.http.routers.apache.entrypoints=http"
+      - "traefik.http.routers.apache-php.rule=Host(`$PROJECT_NAME.local`)"
+      - "traefik.http.routers.apache-php.entrypoints=http"
